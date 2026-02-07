@@ -37,6 +37,26 @@ The pipeline consists of:
 
 4. **Model Persistence**
    - The trained model and vectorizer were saved using `joblib`.
+  
+ **Predict Password Strength**:
+    You can use the saved model and vectorizer to predict the strength of a new password:
+
+    ```python
+    import joblib
+
+    model = joblib.load('mlp_classifier_model.joblib')
+    vectorizer = joblib.load('tfidf_vectorizer.joblib')
+
+    # Test with a sample password
+    sample_password = "MyStrongP@ssw0rd123!"
+    X = vectorizer.transform([sample_password])
+    prediction = model.predict(X)
+
+    strength_mapping = {0: "Weak", 1: "Medium", 2: "Strong"}
+    predicted_strength = strength_mapping[prediction[0]]
+
+    print(f"The password is {predicted_strength}")
+    ```
 
 ## Technologies Used
 
